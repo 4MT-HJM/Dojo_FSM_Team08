@@ -36,7 +36,7 @@ TEST_F(LightSwitchFsmTestSuite, CheckTwoLightsOn)
     EXPECT_CALL(m_bulbMock2, turnOn());
     m_lightSwitchFsm.handleEvent(EEvent::EEventTurnRight);
     m_lightSwitchFsm.handleEvent(EEvent::EEventTurnRight);
-    EXPECT_EQ(ELightStates::EstateAllOn, m_lightSwitchFsm.getStatus());    
+    EXPECT_EQ(ELightStates::EStateAllOn, m_lightSwitchFsm.getStatus());
 }
 
 TEST_F(LightSwitchFsmTestSuite, CheckOneLightOff)
