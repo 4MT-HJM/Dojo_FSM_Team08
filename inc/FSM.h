@@ -42,8 +42,8 @@ class LightSwitchFsm
 {
 public:
     LightSwitchFsm( 
-        std::shared_ptr<ILightState>& p_stateOff,
-        std::shared_ptr<ILightState>& p_stateOneOn):
+        std::shared_ptr<ILightState> p_stateOff,
+        std::shared_ptr<ILightState> p_stateOneOn):
         s_stateOff(p_stateOff),
         s_stateOneOn(p_stateOneOn)
     {
