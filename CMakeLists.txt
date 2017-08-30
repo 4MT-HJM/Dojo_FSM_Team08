@@ -18,6 +18,6 @@ if(EXISTS "${PROJECT_SOURCE_DIR}/googletest/googlemock")
 	include_directories("test")
 	add_library(gtestgmock googletest/googletest/src/gtest-all.cc googletest/googlemock/src/gmock-all.cc)
 
-	add_executable(FSMTest  test/FSMTests.cc)
+	add_executable(FSMTest test/mainTest.cpp test/FSMTest.cc)
 	target_link_libraries(FSMTest FSMModule gtestgmock pthread)
 endif()
