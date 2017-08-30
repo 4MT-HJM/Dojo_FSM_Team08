@@ -1,29 +1,15 @@
 #include "FSM.h"
 
-ELightStates LightSwitchFsm::getStatus() const
+void LightStateOff::handleEvent(EEvent p_event) 
 {
-    return m_status;
+    if(EEvent::EEventTurnRight == p_event)
+    {
+        m_bulb1.turnOn();    
+    }
 }
 
-void LightSwitchFsm::handleEvent(const EEvent p_event)
+void LightSwitchFsm::processEvent(const EEvent p_event)
 {
-    if(ELightStates::EStateOff == m_status)
-    {
-        m_bulb1.turnOn();
-        m_status = ELightStates::EStateOneOn;
-    }
-    else if(ELightStates::EStateOneOn == m_status)
-    {
-        if (p_event == EEvent::EEventTurnLeft)
-        {
-            m_bulb1.turnOff();
-            m_status = ELightStates::EStateOff;
-        }
-        else
-        {
-            m_bulb2.turnOn();
-            m_status = ELightStates::EStateAllOn;
-        }
-    }
-
+    m_currentState->handleEvent(p_event);
 }
+

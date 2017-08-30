@@ -3,40 +3,46 @@
 #include "BulbMock.h"
 //#include <memory>
 
+using namespace std;
 using namespace testing;
 
 class LightSwitchFsmTestSuite : public Test
 {
 public:
-    LightSwitchFsmTestSuite() : m_lightSwitchFsm(m_bulbMock1, m_bulbMock2)
+    LightSwitchFsmTestSuite() : m_lightSwitchFsm(m_stateOffMock, m_stateOneOnMock)
     {
     }
 
     StrictMock<BulbMock> m_bulbMock1;
     StrictMock<BulbMock> m_bulbMock2;
+    shared_ptr<StateMock> m_stateOffMock = make_shared<StrictMock<StateMock>>();
+    shared_ptr<StateMock> m_stateOneOnMock = make_shared<StrictMock<StateMock>>();
+    //StrictMock<StateMock> m_stateMock;
     LightSwitchFsm m_lightSwitchFsm;
 };
 
-TEST_F(LightSwitchFsmTestSuite, CheckLightInitialStatus)
+/*TEST_F(LightSwitchFsmTestSuite, CheckLightInitialStatus)
 {    
     EXPECT_EQ(ELightStates::EStateOff, m_lightSwitchFsm.getStatus());
     
-}
+}*/
 
 TEST_F(LightSwitchFsmTestSuite, CheckOneLightOn)
 {
     EXPECT_CALL(m_bulbMock1, turnOn()); 
-    m_lightSwitchFsm.handleEvent(EEvent::EEventTurnRight);
-    EXPECT_EQ(ELightStates::EStateOneOn, m_lightSwitchFsm.getStatus());    
-}
+    EXPECT_CALL(*m_stateOffMock, handleEvent(EEvent::EEventTurnRight));
 
+    m_lightSwitchFsm.processEvent(EEvent::EEventTurnRight);
+    //EXPECT_EQ(ELightStates::EStateOneOn, m_lightSwitchFsm.getStatus());    
+}
+/*
 TEST_F(LightSwitchFsmTestSuite, CheckTwoLightsOn)
 {
     EXPECT_CALL(m_bulbMock1, turnOn());
     EXPECT_CALL(m_bulbMock2, turnOn());
     m_lightSwitchFsm.handleEvent(EEvent::EEventTurnRight);
     m_lightSwitchFsm.handleEvent(EEvent::EEventTurnRight);
-    EXPECT_EQ(ELightStates::EStateAllOn, m_lightSwitchFsm.getStatus());
+    EXPECT_EQ(ELightStates::EstateAllOn, m_lightSwitchFsm.getStatus());    
 }
 
 TEST_F(LightSwitchFsmTestSuite, CheckOneLightOff)
@@ -46,4 +52,4 @@ TEST_F(LightSwitchFsmTestSuite, CheckOneLightOff)
     m_lightSwitchFsm.handleEvent(EEvent::EEventTurnRight);
     m_lightSwitchFsm.handleEvent(EEvent::EEventTurnLeft);
     EXPECT_EQ(ELightStates::EStateOff, m_lightSwitchFsm.getStatus());    
-}
+}*/
