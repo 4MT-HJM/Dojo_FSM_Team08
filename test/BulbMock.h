@@ -10,8 +10,3 @@ public:
     MOCK_METHOD0(turnOff, void());
 };
 
-class StateMock : public ILightState
-{
-public:
-   MOCK_METHOD1(handleEvent,void(EEvent));
-};

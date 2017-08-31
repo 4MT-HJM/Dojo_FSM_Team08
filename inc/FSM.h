@@ -15,33 +15,12 @@ enum class EEvent
     EEventTurnLeft
 };
 
-class ILightState
-{
-public:
-    virtual ~ILightState(){}; 
-
-    virtual void handleEvent(EEvent) = 0;
-};
-
-class LightStateOff : public ILightState
-{
-public:
-    LightStateOff(IBulb& bulb1, IBulb& bulb2):
-        m_bulb1(bulb1),
-        m_bulb2(bulb2) 
-    {};
-
-    virtual void handleEvent(EEvent) override;
-
-private:
-    IBulb& m_bulb1;
-    IBulb& m_bulb2;
-};
+class ILightState;
 
 class LightSwitchFsm
 {
 public:
-    LightSwitchFsm( 
+    LightSwitchFsm(
         std::shared_ptr<ILightState> p_stateOff,
         std::shared_ptr<ILightState> p_stateOneOn):
         s_stateOff(p_stateOff),

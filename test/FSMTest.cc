@@ -1,7 +1,8 @@
 #include "gtest/gtest.h"
 #include "FSM.h"
 #include "BulbMock.h"
-//#include <memory>
+#include "StateMock.h"
+#include "ILightState.h"
 
 using namespace std;
 using namespace testing;
@@ -29,11 +30,9 @@ public:
 
 TEST_F(LightSwitchFsmTestSuite, CheckOneLightOn)
 {
-    EXPECT_CALL(m_bulbMock1, turnOn()); 
     EXPECT_CALL(*m_stateOffMock, handleEvent(EEvent::EEventTurnRight));
 
     m_lightSwitchFsm.processEvent(EEvent::EEventTurnRight);
-    //EXPECT_EQ(ELightStates::EStateOneOn, m_lightSwitchFsm.getStatus());    
 }
 /*
 TEST_F(LightSwitchFsmTestSuite, CheckTwoLightsOn)
