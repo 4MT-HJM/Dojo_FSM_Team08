@@ -1,40 +1,25 @@
 #pragma once
 #include "IBulb.h"
+#include "event.h"
+
 #include <memory>
-
-enum class ELightStates
-{
-    EStateOff,
-    EStateOneOn,
-    EStateAllOn
-};
-
-enum class EEvent
-{
-    EEventTurnRight,
-    EEventTurnLeft
-};
 
 class ILightState;
 
 class LightSwitchFsm
 {
 public:
-    LightSwitchFsm(
-        std::shared_ptr<ILightState> p_stateOff,
-        std::shared_ptr<ILightState> p_stateOneOn):
-        s_stateOff(p_stateOff),
-        s_stateOneOn(p_stateOneOn)
+    LightSwitchFsm()
     {
-        m_currentState=s_stateOff;
+        m_currentState = s_stateOff;
     };
 
     void processEvent(const EEvent);
+    std::shared_ptr<ILightState> getCurrentState();
 
+    static std::shared_ptr<ILightState> s_stateOff;
+    static std::shared_ptr<ILightState> s_stateOneOn;
 private:
-
-    std::shared_ptr<ILightState> m_currentState; 
-    std::shared_ptr<ILightState> s_stateOff; 
-    std::shared_ptr<ILightState> s_stateOneOn; 
+    std::shared_ptr<ILightState> m_currentState;
 };
 

@@ -1,5 +1,7 @@
 #pragma once
 
+enum class EEvent;
+
 class ILightState
 {
 public:

@@ -1,3 +1,7 @@
+#pragma once
+#include "ILightState.h"
+#include "IBulb.h"
+
 class LightStateOff : public ILightState
 {
 public:
