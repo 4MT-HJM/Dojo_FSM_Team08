@@ -2,11 +2,12 @@
 #include <memory>
 
 enum class EEvent;
+class ILightSwitchFsm;
 
 class ILightState
 {
 public:
     virtual ~ILightState(){};
 
-    virtual void handleEvent(EEvent, std::shared_ptr<ILightState>&) = 0;
+    virtual void handleEvent(ILightSwitchFsm*, EEvent) = 0;
 };

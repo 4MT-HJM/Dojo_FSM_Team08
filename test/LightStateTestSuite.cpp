@@ -1,29 +1,26 @@
 #include "gtest/gtest.h"
 #include "BulbMock.h"
-#include "LightState.h"
-#include "FSM.h"
+#include "LightStateOneOn.h"
+#include "LightStateOff.h"
+#include "LightSwitchFsmMock.h"
 
 using namespace std;
 using namespace testing;
 
-class FsmMock : public LightSwitchFsm
-{
-public:
-	FsmMock(){}
-	MOCK_METHOD1(transiteState, void(std::shared_ptr<ILightState>));
-};
-
 class LightStateTestSuite : public Test
 {
 public:
-
 	LightStateOff m_lightStateOff{};
 	std::shared_ptr<ILightState> m_currentState = LightSwitchFsm::s_stateOff;
+	LightSwitchFsmMock m_lightSwitchFsmMock{};
 };
 
 TEST_F(LightStateTestSuite, ShouldTurnOnBulb1_WhenStateOff_EventTurnRight)
 {
-	//EXPECT_CALL(m_bulbMock1, turnOn());
-	m_lightStateOff.handleEvent(EEvent::EEventTurnRight, m_currentState);
-    EXPECT_EQ(LightSwitchFsm::s_stateOneOn, m_currentState);
+	EXPECT_CALL(m_lightSwitchFsmMock, turnOnBulb1());
+	EXPECT_CALL(m_lightSwitchFsmMock, transiteState(LightSwitchFsm::s_stateOneOn));
+	m_lightStateOff.handleEvent(&m_lightSwitchFsmMock, EEvent::EEventTurnRight);
 };
+
+
+

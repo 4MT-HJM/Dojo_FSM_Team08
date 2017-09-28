@@ -1,7 +1,6 @@
 #pragma once
 #include "gmock/gmock.h"
 #include "IBulb.h"
-#include "FSM.h"
 
 class BulbMock : public IBulb
 {

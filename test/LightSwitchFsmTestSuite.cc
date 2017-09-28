@@ -1,5 +1,5 @@
 #include "gtest/gtest.h"
-#include "FSM.h"
+#include "LightSwitchFsm.h"
 #include "BulbMock.h"
 #include "StateMock.h"
 #include "state.h"

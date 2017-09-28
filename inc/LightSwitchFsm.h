@@ -1,13 +1,14 @@
 #pragma once
+
+#include <memory>
+
+#include "ILightSwitchFsm.h"
 #include "IBulb.h"
 #include "event.h"
 
-#include <memory>
-#include <iostream>
-
 class ILightState;
 
-class LightSwitchFsm
+class LightSwitchFsm : public ILightSwitchFsm
 {
 public:
     LightSwitchFsm()
@@ -18,10 +19,7 @@ public:
     void processEvent(const EEvent);
     std::shared_ptr<ILightState> getCurrentState();
     virtual void transiteState(std::shared_ptr<ILightState>);
-    void turnOn()
-    {
-    	std::cout << "turn on in fsm!\n";
-    }
+    void turnOnBulb1();
 
     static std::shared_ptr<ILightState> s_stateOff;
     static std::shared_ptr<ILightState> s_stateOneOn;
